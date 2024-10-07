@@ -1,0 +1,440 @@
+* Apostila
+Apostila para a *Maratora de Programação*
+Fontes: ([[https://youkn0wwho.academy/topic-list][topic-list]], [[https://noic.com.br/materiais-informatica/curso/][noic-cursors]], [[https://cp-algorithms.com/][cp-algorithms]], [[https://projecteuler.net/archives][project-euler]])
+
+
+** Arquivos de Configuração (Vim & Emacs)
+*Configuração Básica* do *Vim* _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
+#+BEGIN_SRC vimrc
+" Numbers
+set number
+set relativenumber
+" Cursor
+let &t_SI = "\<Esc>[5 q"
+let &t_SR = "\<Esc>[3 q"
+let &t_EI = "\<Esc>[1 q"
+" Mouse Settings
+set mouse=a
+set mousemodel=popup
+" Clipboards Settings
+set clipboard^=unnamed,unnamedplus
+set paste
+set go+=a
+" Keys
+set backspace+=indent,eol,start
+set whichwrap+=<,>,h,l,[,]
+" Text
+set autoindent
+set encoding=UTF-8
+#+END_SRC
+
+*Configuração Básica* do *Emacs* _~/.emacs_, _~/.emacs.d/init.el_
+#+BEGIN_SRC elisp
+;; Initial
+(setq initial-major-mode 'fundamental-mode)
+(setq initial-scratch-message 'nil)
+;; Variables
+(custom-set-variables
+ '(column-number-mode t)
+ '(global-display-line-numbers-mode t)
+ '(display-line-numbers-type 'relative)
+ '(custom-enabled-themes '(tsdh-dark))
+ '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
+ '(tool-bar-mode nil))
+#+END_SRC
+
+
+** Algoritimos (C++)
+*Funções Recorrentes* no *C++*, algumas já são implementadas no *Standard Library (std)*.
+
+
+*** Matemática
+*MDC (Máximo Divisor Comum)* ([[https://pt.wikipedia.org/wiki/M%C3%A1ximo_divisor_comum][maior divisor entre 2 números]])
+#+BEGIN_SRC cpp
+int64_t mdc(const int64_t a, const int64_t b) {
+	const int64_t max = std::max(a, b);
+	const int64_t min = std::min(a, b);
+	const int64_t rest = max % min;
+	if (rest == 0)
+		return min;
+	return mdc(min, rest);
+}
+#+END_SRC
+
+*Número de Divisores*
+#+BEGIN_SRC cpp
+int64_t divisors_count(int64_t num) {
+	int64_t total = 1;
+	for (int64_t i = 2; i * i <= num; i++) {
+		int64_t e = 0;
+		while (num % i == 0) {
+			e++;
+			num /= i;
+		}
+		if (e != 0) {
+			total *= e + 1;
+		}
+	}
+	if (num > 1) {
+		total *= 2;
+	}
+	return total;
+}
+#+END_SRC
+
+*Exponencial de Base 2 Inteiro*
+#+BEGIN_SRC cpp
+#define EXP2(x) (1LL << x)
+#+END_SRC
+
+
+*** Matriz
+*Criar Matriz*
+#+BEGIN_SRC cpp
+std::vector<std::vector<int64_t>> criar_matriz(const int64_t linhas, const int64_t colunas, const int64_t def) {
+	std::vector<std::vector<int64_t>> mat(linhas);
+	for (int64_t linha = 0; linha < linhas; linha++)
+		mat[linha] = std::vector<int64_t>(colunas, def);
+	return mat;
+}
+#+END_SRC
+
+
+*** Sort
+*Merge Sort* ([[https://pt.wikipedia.org/wiki/Merge_sort][divisão e conquista]])
+#+BEGIN_SRC cpp
+void merge_sort(std::vector<int64_t> &vec) {
+	if (vec.size() <= 1)
+		return;
+	const int64_t mid = vec.size() / 2;
+	std::vector<int64_t> v_a(vec.begin(), vec.begin() + mid);
+	std::vector<int64_t> v_b(vec.begin() + mid, vec.end());
+	merge_sort(v_a);
+	merge_sort(v_b);
+	std::merge(v_a.begin(), v_a.end(), v_b.begin(), v_b.end(), vec.begin());
+}
+#+END_SRC
+
+
+*** Primos
+*É Primo* ([[https://pt.wikipedia.org/wiki/N%C3%BAmero_primo][números primos]] maiores que 3 tem o formato /6k \pm{} 1/)
+#+BEGIN_SRC cpp
+bool primo(const int64_t n) {
+	if(n == 1)
+		return false;
+	else if (n < 4)
+		return true;
+	else if (n % 2 == 0)
+		return false;
+	else if (n < 9)
+		return true;
+	else if (n % 3 == 0)
+		return false;
+	else {
+		int64_t r = std::floor(std::sqrt(n));
+		int64_t f = 5;
+		while (f <= r) {
+			if (n % f == 0)
+				return false;
+			if (n % (f+2) == 0)
+				return false;
+			f += 6;
+		}
+		return true;
+	}
+}
+#+END_SRC
+
+*Fatores Primos* ([[https://pt.wikipedia.org/wiki/Fator_primo][método dos divisores]])
+#+BEGIN_SRC cpp
+std::vector<std::pair<int64_t, int64_t>> fatores_primos(int64_t n) {
+	std::vector<std::pair<int64_t, int64_t>> prim;
+	if (n % 2 == 0) {
+		std::pair<int64_t, int64_t> p2(2, 0);
+		while (n % 2 == 0) {
+			n /= 2;
+			p2.second++;
+		}
+		prim.push_back(p2);
+	}
+	for (int64_t fator = 3; n > 1 && fator <= std::sqrt(n); fator += 2) {
+		if (n % fator == 0) {
+			std::pair<int64_t, int64_t> pf(fator, 0);
+			while (n % fator == 0) {
+				n /= fator;
+				pf.second++;
+			}
+			prim.push_back(pf);
+		}
+	}
+	if (n > 1)
+		prim.push_back(std::pair<int64_t, int64_t>(n, 1));
+	return prim;
+}
+#+END_SRC
+
+*Primos Menores que N* /v1.0/ ([[https://pt.wikipedia.org/wiki/N%C3%BAmero_composto][método dos divisores]])
+#+BEGIN_SRC cpp
+std::vector<int64_t> primos_n(const int64_t n) {
+	std::vector<int64_t> prim;
+	if (n > 2)
+		prim.push_back(2);
+	for (int64_t cand = 3; cand < n; cand += 2)
+		if (primo(cand))
+			prim.push_back(cand);
+	return prim;
+}
+#+END_SRC
+
+*Primos Menores que N* /v2.0/ ([[https://pt.wikipedia.org/wiki/Crivo_de_Erat%C3%B3stenes][crivo de eratóstenes]])
+#+BEGIN_SRC cpp
+std::vector<int64_t> primos_n(const int64_t n) {
+	std::vector<int64_t> prim;
+	prim.reserve(n/2);
+	if (n > 2)
+		prim.push_back(2);
+	for (int64_t i = 3; i < n; i += 2)
+		prim.push_back(i);
+	for (int64_t i = 1; i < prim.size(); i++) {
+		if (prim[i] * prim[i] >= n)
+			break;
+		std::vector<int64_t> tmp(prim.begin(), prim.begin() + i + 1);
+		for (int64_t e = i + 1; e < prim.size(); e++)
+			if (prim[e] % prim[i] != 0)
+				tmp.push_back(prim[e]);
+		prim = tmp;
+	}
+	return prim;
+}
+#+END_SRC
+
+*Formato do Número Primo de Mersenne* ([[https://en.wikipedia.org/wiki/Mersenne_prime][número primo de mersenne]], /2^n-1/)
+#+BEGIN_SRC cpp
+#define PRIMO_MERCENE_FORMATO(x) (EXP2(x) - 1)
+#+END_SRC
+
+*Lista dos Expoentes dos Números Primos de Mersenne* ([[https://en.wikipedia.org/wiki/List_of_Mersenne_primes_and_perfect_numbers][lista de primos de mersenne]])
+#+BEGIN_SRC cpp
+std::array<int64_t, 9> exponente_primo_mercene_lista = { 2, 3, 5, 7, 13, 17, 19, 31, 61 };
+#+END_SRC
+
+*Lista de Números Primos de Mersenne* ([[https://en.wikipedia.org/wiki/List_of_Mersenne_primes_and_perfect_numbers][lista de primos de mersenne]])
+#+BEGIN_SRC cpp
+std::array<int64_t, 9> primo_mercene_lista = {
+	PRIMO_MERCENE_FORMATO(2),
+	PRIMO_MERCENE_FORMATO(3),
+	PRIMO_MERCENE_FORMATO(5),
+	PRIMO_MERCENE_FORMATO(7),
+	PRIMO_MERCENE_FORMATO(13),
+	PRIMO_MERCENE_FORMATO(17),
+	PRIMO_MERCENE_FORMATO(19),
+	PRIMO_MERCENE_FORMATO(31),
+	PRIMO_MERCENE_FORMATO(61)
+};
+#+END_SRC
+
+*Número Primo de Mersenne* ([[https://en.wikipedia.org/wiki/List_of_Mersenne_primes_and_perfect_numbers][lista de primos de mersenne]])
+#+BEGIN_SRC cpp
+bool primo_mercene(const int64_t n) {
+	auto it = std::lower_bound(primo_mercene_lista.begin(), primo_mercene_lista.end(), n);
+	if (it == primo_mercene_lista.end())
+		return false;
+	return *it == n;
+}
+#+END_SRC
+
+
+*** Coprimos
+*Coprimos (Números Primos entre Si)*
+#+BEGIN_SRC cpp
+bool coprimos(const int64_t a, const int64_t b) {
+	if(mdc(a, b) == 1)
+		return true;
+	return false;
+}
+#+END_SRC
+
+*Coprimos de N Menores que N*
+#+BEGIN_SRC cpp
+std::vector<int64_t> coprimos_n(const int64_t n) {
+	std::vector<int64_t> cop;
+	for (int64_t i = 1; i < n; i++)
+		if (coprimos(n, i))
+			cop.push_back(i);
+	return cop;
+}
+#+END_SRC
+
+*PHI: Número Total de Coprimos de N Menores que N* /v1.0/ ([[https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_totiente_de_Euler][função totiente de euler]])
+#+BEGIN_SRC cpp
+int64_t phi(const int64_t n) {
+	int64_t total = 0;
+	for (int64_t i = 1; i < n; i++)
+		if (coprimos(n, i))
+			total++;
+	return total;
+}
+#+END_SRC
+
+*PHI: Número Total de Coprimos de N Menores que N* /v2.0/ ([[https://cp-algorithms.com/algebra/phi-function.html][função totiente de euler]])
+#+BEGIN_SRC cpp
+int64_t phi(int64_t n) {
+	int64_t total = n;
+	for (int64_t i = 2; i * i <= n; i++) {
+		if (n % i == 0) {
+			while (n % i == 0)
+				n /= i;
+			total -= total / i;
+		}
+	}
+	if (n > 1)
+		total -= total / n;
+	return total;
+}
+#+END_SRC
+
+*Lista de Funções Totientes de Euler Menores que N* /v1.0/ (lista de phi com n < N)
+#+BEGIN_SRC cpp
+std::vector<int64_t> phi_n(const int64_t n) {
+	std::vector<int64_t> ph { 0, 1 };
+	ph.resize(n);
+	for (int64_t i = 2; i < n; i++)
+		ph[i] = i - 1;
+	for (int64_t i = 2; i < n; i++)
+		for (int64_t j = 2 * i; j < n; j += i)
+			ph[j] -= ph[i];
+	return ph;
+}
+#+END_SRC
+
+*Lista de Funções Totientes de Euler Menores que N* /v2.0/ (lista de phi com n < N)
+#+BEGIN_SRC cpp
+std::vector<int64_t> phi_n(const int64_t n) {
+	std::vector<int64_t> ph(n);
+	for (int64_t i = 0; i < n; i++)
+		ph[i] = i;
+	for (int64_t i = 2; i < n; i++)
+		if (ph[i] == i)
+			for (int64_t e = i; e < n; e += i)
+				ph[e] -= ph[e] / i;
+	return ph;
+}
+#+END_SRC
+
+
+*** Números Perfeitos
+*Formato do Número Perfeitos Pares* ([[https://en.wikipedia.org/wiki/Perfect_number][número perfeito]], /2^{n-1}*(2^n-1)/)
+#+BEGIN_SRC cpp
+#define NUMERO_PERFEITO_FROMATO(x) ((EXP2(x-1))*PRIMO_MERCENE_FORMATO(x))
+#+END_SRC
+
+*Lista de Números Perfeitos* ([[https://en.wikipedia.org/wiki/List_of_Mersenne_primes_and_perfect_numbers][lista de números perfeitos]])
+#+BEGIN_SRC cpp
+std::array<int64_t, 8> perfeito_lista = {
+	NUMERO_PERFEITO_FROMATO(2),
+	NUMERO_PERFEITO_FROMATO(3),
+	NUMERO_PERFEITO_FROMATO(5),
+	NUMERO_PERFEITO_FROMATO(7),
+	NUMERO_PERFEITO_FROMATO(13),
+	NUMERO_PERFEITO_FROMATO(17),
+	NUMERO_PERFEITO_FROMATO(19),
+	NUMERO_PERFEITO_FROMATO(31)
+};
+#+END_SRC
+
+*Número Perfeito* ([[https://pt.wikipedia.org/wiki/N%C3%BAmero_perfeito][a soma de todos os divisores de N, tirando o próprio N, resulta em N]])
+#+BEGIN_SRC cpp
+bool perfeito(const int64_t n) {
+	auto it = std::lower_bound(perfeito_lista.begin(), perfeito_lista.end(), n);
+	if (it == perfeito_lista.end())
+		return false;
+	return *it == n;
+}
+#+END_SRC
+
+*SIGMA: Soma de Todos os Divisores de N* ([[https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_divisor][soma dos divisores de N]])
+#+BEGIN_SRC cpp
+int64_t sigma(int64_t n) {
+	int64_t total = 1;
+	for (int64_t i = 2; i * i <= n; i++) {
+		int e = 0;
+		while (n % i == 0) {
+			e++;
+			n /= i;
+		}
+		if (e != 0) {
+			int64_t sum = 0, pow = 1;
+			for (; e >= 0; e--) {
+				sum += pow;
+				pow *= i;
+			}
+			total *= sum;
+		}
+	}
+	if (n > 1) {
+		total *= (1 + n);
+	}
+	return total;
+}
+#+END_SRC
+
+
+** Estrutura de Dados (C++)
+
+** Programação Dinâmica (C++)
+
+** Operadores Recorrentes (C++)
+#+BEGIN_SRC txt
+Bitwise AND (&)
+Bitwise OR (|)
+Bitwise XOR (^)
+Bitwise NOT (~)
+Left Shift (<<)
+Right Shift (>>)
+#+END_SRC
+
+
+** Commandos de Compilação e Configuração
+Para compilar um arquivo _main.cpp_ e executar ele com a entrada _input.txt_ basta seguir estes comandos
+
+*Shell (sh)*
+#+BEGIN_SRC sh
+g++ -O2 -std=c++20 main.cpp -o main
+./main < input.txt
+#+END_SRC
+
+*PowerShell (pwsh)*
+#+BEGIN_SRC pwsh
+g++ -O2 -std=c++20 main.cpp -o main
+./main < input.txt
+#+END_SRC
+
+*Command Prompt (cmd)*
+#+BEGIN_SRC cmd
+g++ -O2 -std=c++20 main.cpp -o main
+main < input.txt
+#+END_SRC
+
+*Makefile (make)*
+#+BEGIN_SRC makefile
+win:
+	g++ -std=c++20 -O2 main.cpp -o main
+	main < input.txt
+
+win-run:
+	main < input.txt
+
+win-del:
+	del main.exe
+
+unix:
+	g++ -std=c++20 -O2 main.cpp -o main
+	./main < input.txt
+
+unix-run:
+	./main < input.txt
+
+unix-rm:
+	rm main
+#+END_SRC
