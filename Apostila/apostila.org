@@ -6,6 +6,13 @@ Fontes: ([[https://youkn0wwho.academy/topic-list][topic-list]], [[https://noic.c
 ** Arquivos de Configuração (Vim & Emacs)
 *Configuração Básica* do *Vim* _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
 #+BEGIN_SRC vimrc
+" Basic Setup
+set nocompatible
+filetype on
+filetype indent on
+" Scheme
+syntax on
+set termguicolors
 " Numbers
 set number
 set relativenumber
