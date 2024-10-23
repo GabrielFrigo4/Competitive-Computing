@@ -33,6 +33,20 @@ Output
 96941
 ```
 
+# Dica
+```
+Soma entre os indices 0 e 100: 541181
+Soma entre os indices 100 e 200: 545856
+Soma entre os indices 200 e 300: 607496
+Soma entre os indices 300 e 400: 568686
+Soma entre os indices 400 e 500: 556993
+Soma entre os indices 500 e 600: 534643
+Soma entre os indices 600 e 700: 549969
+Soma entre os indices 700 e 800: 583186
+Soma entre os indices 800 e 900: 544919
+Soma entre os indices 900 e 999: 526748
+```
+
 # Softwares
  - `FFMPEG` => Get PNG frames in MP4 file
  - `OCRAD` or `GOCR` => Get Text in PNG frames

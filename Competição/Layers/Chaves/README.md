@@ -40,3 +40,7 @@ Output
 ```
 N
 ```
+
+# Dica
+1. A quantidade de `{` e `}` devem ser iguais
+2. O padrão `{}}...` é invalido, mesmo se a quantidade de `{` e `}` forem iguais
