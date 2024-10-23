@@ -47,5 +47,5 @@ Output
 4
 ```
 
-# Dica
+## Dica
 Se você tiver apenas 1 balão, no pior caso você teria que testar N vezes.

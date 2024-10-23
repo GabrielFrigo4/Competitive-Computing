@@ -33,7 +33,7 @@ Output
 96941
 ```
 
-# Dica
+## Dica
 ```
 Soma entre os indices 0 e 100: 541181
 Soma entre os indices 100 e 200: 545856
