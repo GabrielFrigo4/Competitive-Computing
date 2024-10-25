@@ -2,6 +2,14 @@
 #include <algorithm>
 
 void test_case(void) {
+	int64_t n;
+	std::cin >> n;
+	if (n % 2 == 0) {
+		std::cout << "Sakurako" << std::endl;
+	}
+	else {
+		std::cout << "Kosuke" << std::endl;
+	}
 	return;
 }
 

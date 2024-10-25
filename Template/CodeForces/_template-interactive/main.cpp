@@ -6,7 +6,7 @@ void test_case(int64_t t) {
 }
 
 int main(void) {
-	std::ios_base::sync_with_stdio(0);
+	std::ios_base::sync_with_stdio(false);
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
 
