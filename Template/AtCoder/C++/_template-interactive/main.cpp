@@ -1,5 +1,10 @@
-#include <bits/stdc++.h>
 #include <algorithm>
+#include <iostream>
+#include <cstdint>
+#include <cstddef>
+#include <climits>
+#include <cstring>
+#include <cctype>
 
 void test_case(int64_t t) {
 	return;
@@ -16,3 +21,4 @@ int main(void) {
 	}
 	return 0;
 }
+

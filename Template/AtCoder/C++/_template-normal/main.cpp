@@ -1,7 +1,12 @@
-#include <bits/stdc++.h>
 #include <algorithm>
+#include <iostream>
+#include <cstdint>
+#include <cstddef>
+#include <climits>
+#include <cstring>
+#include <cctype>
 
-void test_case(void) {
+void test_run(void) {
 	return;
 }
 
@@ -10,11 +15,6 @@ int main(void) {
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
 
-	int64_t t;
-	std::cin >> t;
-
-	for (int32_t i = 0; i < t; i++) {
-		test_case();
-	}
+	test_run();
 	return 0;
 }
