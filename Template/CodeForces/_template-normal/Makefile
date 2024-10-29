@@ -1,5 +1,5 @@
 win:
-	g++ -std=c++20 -O2 main.cpp -o main
+	g++ -std=c++23 -O2 main.cpp -o main
 	main < input.txt
 
 win-run:
@@ -9,7 +9,7 @@ win-del:
 	del main.exe
 
 unix:
-	g++ -std=c++20 -O2 main.cpp -o main
+	g++ -std=c++23 -O2 main.cpp -o main
 	./main < input.txt
 
 unix-run:
