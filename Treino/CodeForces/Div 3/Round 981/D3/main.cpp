@@ -17,7 +17,7 @@ void test_case(void) {
 		std::cin >> _a;
 	}
 
-	std::unordered_map<int64_t, int64_t> cache = {{hash(0), 0}};
+	std::unordered_map<size_t, int64_t> cache = {{hash(0), 0}};
 	std::vector<int64_t> prefix(n+1, 0);
 	cache.reserve(static_cast<size_t>(n));
 	int64_t count = 0;
