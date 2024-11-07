@@ -8,7 +8,7 @@ Além disso, as câmeras usadas pela empresa possuem visão de `360` graus e um 
 
 Dadas estas características, note que uma câmera instalada em uma esquina consegue vigiar todas as ruas que chegam nesta esquina.
 
-O objetivo desta tarefa é fazer um programa que, dado o mapa de ruas de um condomínio e um inteiro `K`, determina se é possível vigiar todas as ruas do condomínio usando exatamente K câmeras e, em caso afirmativo, indicar em quais esquinas elas devem ser instaladas.
+O objetivo desta tarefa é fazer um programa que, dado o mapa de ruas de um condomínio e um inteiro `K`, determina se é possível vigiar todas as ruas do condomínio usando exatamente `K` câmeras e, em caso afirmativo, indicar em quais esquinas elas devem ser instaladas.
 
 Seja `N` o número de esquinas e `M` é o número de ruas do condomínio. Os índices que identificam as esquinas serão `0, ..., N-1`. Da mesma forma, os índices que identificam as ruas serão `0, ..., M-1`. O mapa do condomínio será representado por uma matriz `NxM` na qual o valor de cada célula será `0` ou `1`. Nesta representação `A[I][J] = 1` se e somente se `I` for uma das esquinas da rua `J` (note que, por definição, cada coluna terá exatamente dois valores iguais a `1` e os demais serão nulos).
 
@@ -40,7 +40,7 @@ Saída: Se não for possível vigiar todas as ruas com `K` câmeras, imprima o v
 
 ## Observações
 
-Sugestão: Crie uma variável no seu programa que corresponde a um vetor de inteiros de tamanho `50` (número máximo de ruas), inicializado com zero em todas suas posições. Chamemos este vetor de `vigiada`. Ao longo da execução do programa, o valor de `vigiada[J]` contará o número de câmeras que vigiam a rua J na solução que está sendo construída pelo procedimento recursivo. Para atualizar este valor ao longo da recursão, toda vez que se instalar uma câmera na esquina `I`, as ruas que fazem esquina em `I` têm o seu valor em `vigiada` incrementado de uma unidade. Por outro lado, quando a instalação da câmera na esquina `I` é desfeita, este valor deve ser decrementado. Para que isto funcione adequadamente, você pode passar este vetor como parâmetro no procedimento recursivo. Perceba que, para saber se um determinado conjunto de câmeras vigia todas as ruas, basta verificar se todas as posições de `0` a `M-1` do vetor vigiada possuem valores positivos.
+Sugestão: Crie uma variável no seu programa que corresponde a um vetor de inteiros de tamanho `50` (número máximo de ruas), inicializado com zero em todas suas posições. Chamemos este vetor de `vigiada`. Ao longo da execução do programa, o valor de `vigiada[J]` contará o número de câmeras que vigiam a rua `J` na solução que está sendo construída pelo procedimento recursivo. Para atualizar este valor ao longo da recursão, toda vez que se instalar uma câmera na esquina `I`, as ruas que fazem esquina em `I` têm o seu valor em `vigiada` incrementado de uma unidade. Por outro lado, quando a instalação da câmera na esquina `I` é desfeita, este valor deve ser decrementado. Para que isto funcione adequadamente, você pode passar este vetor como parâmetro no procedimento recursivo. Perceba que, para saber se um determinado conjunto de câmeras vigia todas as ruas, basta verificar se todas as posições de `0` a `M-1` do vetor vigiada possuem valores positivos.
 
 ## Exemplo 1:
 
