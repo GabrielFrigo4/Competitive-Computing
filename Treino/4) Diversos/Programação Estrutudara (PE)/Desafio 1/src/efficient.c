@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[N], const int index);
+void distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[K], int vigiadas[M]);
 
 void inputTest(int input[3]);
 void inputMatriz(const int N, const int M, int matriz[N][M]);
 
+bool memoryCombination(const int N, const int K, const int index, int comb[K]);
 void memorySet(const int n, int buffer[n], const int val);
 void memoryCopy(const int n, const int in_buffer[n], int out_buffer[n]);
 int memoryAccumulate(const int n, const int buffer[n]);
@@ -19,41 +20,42 @@ int main(void) {
 	int matriz[N][M];
 	inputMatriz(N, M, matriz);
 
-	int cameras[N];
-	memorySet(N, cameras, 0);
+	int vigiadas[M];
+	memorySet(M, vigiadas, 0);
 
-	distribuiCameras(N, M, K, matriz, cameras, 0);
-	if (cameras[0] < 0) {
+	int cameras[K];
+	for (int i = 0; i < K; i++)
+		cameras[i] = i;
+
+	distribuiCameras(N, M, K, matriz, cameras, vigiadas);
+	if (cameras[0] <= -1 )
 		printf("-1");
-	}
-	else {
-		for (int i = 0; i < N; i++) {
-			if (cameras[i] > 0)
-				printf("%i ", i);
-		}
-	}
+	else
+		for (int i = 0; i < K; i++)
+			printf("%i ", cameras[i]);
 	return 0;
 }
 
-void distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[N], const int index) {
-	int vigiada[M];
-	memorySet(M, vigiada, 0);
+void distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[K], int vigiadas[M]) {
+	int i, j;
+	bool flag;
 
-	if (memoryAccumulate(N, cameras) == K) {
-		for (int i = 0; i < N; i++) {
-			if (cameras[i] <= 0)
-				continue;
-			for (int j = 0; j < M; j++) {
-				vigiada[j] += matriz[i][j];
-			}
-		}
-		if (memoryOk(M, vigiada)) {
-			return memoryLayer(N, cameras);
-		}
-		else {
-			return -1;
+	memorySet(M, vigiadas, 0);
+	for (i = 0; i < K; i++)
+		for (j = 0; j < M; j++)
+			vigiadas[j] += matriz[cameras[i]][j];
+
+	if (!memoryOk(M, vigiadas)) {
+		flag = memoryCombination(N, K, 0, cameras);
+		if (!flag) {
+			memorySet(K, cameras, -1);
+			return;
 		}
 	}
+	else
+		return;
+
+	distribuiCameras(N, M, K, matriz, cameras, vigiadas);
 }
 
 void inputTest(int input[3]) {
@@ -65,6 +67,23 @@ void inputMatriz(const int N, const int M, int matriz[N][M]) {
 	for (i = 0; i < N; i++)
 		for (j = 0; j < M; j++)
 			scanf("%i", &matriz[i][j]);
+}
+
+bool memoryCombination(const int N, const int K, const int index, int comb[K]) {
+    int i, j;
+    bool flag;
+    if (index == K)
+        return false;
+	for (i = comb[index]; i < N + index - K; i++) {
+		flag = memoryCombination(N, K, index + 1, comb);
+		if (!flag) {
+		    comb[index]++;
+		    for (j = index + 1; j < K; j++)
+		        comb[j] = comb[j - 1] + 1;
+		}
+		return true;
+	}
+	return false;
 }
 
 void memorySet(const int n, int buffer[n], const int val) {

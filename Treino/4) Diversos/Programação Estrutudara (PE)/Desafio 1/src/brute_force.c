@@ -24,45 +24,38 @@ int main(void) {
 	memorySet(N, cameras, 0);
 
 	long layer = distribuiCameras(N, M, K, matriz, cameras, 0);
-	if (layer < 0) {
+	if (layer < 0)
 		printf("-1");
-	}
-	else {
-		for (int i = 0; i < N; i++) {
+	else
+		for (int i = 0; i < N; i++)
 			if (cameras[i] > 0)
 				printf("%i ", i);
-		}
-	}
 	return 0;
 }
 
 long distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[N], const int index) {
+	int i, j;
 	int vigiada[M];
 	memorySet(M, vigiada, 0);
 
 	if (memoryAccumulate(N, cameras) == K) {
-		for (int i = 0; i < N; i++) {
+		for (i = 0; i < N; i++) {
 			if (cameras[i] <= 0)
 				continue;
-			for (int j = 0; j < M; j++) {
+			for (j = 0; j < M; j++)
 				vigiada[j] += matriz[i][j];
-			}
 		}
-		if (memoryOk(M, vigiada)) {
+		if (memoryOk(M, vigiada))
 			return memoryLayer(N, cameras);
-		}
-		else {
+		else
 			return -1;
-		}
 	}
 
-	if (index + (K - memoryAccumulate(N, cameras)) > N) {
+	if (index + (K - memoryAccumulate(N, cameras)) > N)
 		return -1;
-	}
 
-	if (index == N) {
+	if (index == N)
 		return -1;
-	}
 
 	int cameras1[N];
 	memoryCopy(N, cameras, cameras1);
@@ -74,9 +67,8 @@ long distribuiCameras(const int N, const int M, const int K, const int matriz[N]
 	long layer1 = distribuiCameras(N, M, K, matriz, cameras1, index + 1);
 	long layer2 = distribuiCameras(N, M, K, matriz, cameras2, index + 1);
 
-	if (layer1 == layer2) {
+	if (layer1 == layer2)
 		return -1;
-	}
 	else if (layer1 < layer2) {
 		if (layer1 > 0) {
 			memoryCopy(M, cameras1, cameras);
