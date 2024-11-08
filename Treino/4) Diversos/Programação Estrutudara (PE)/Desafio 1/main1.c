@@ -3,7 +3,7 @@
 
 long distribuiCameras(const int N, const int M, const int K, const int matriz[N][M], int cameras[N], const int index);
 
-void inputTest(int *N, int *M, int *K);
+void inputTest(int input[3]);
 void inputMatriz(const int N, const int M, int matriz[N][M]);
 
 void memorySet(const int n, int buffer[n], const int val);
@@ -13,8 +13,9 @@ long memoryLayer(const int n, const int buffer[n]);
 bool memoryOk(const int n, const int buffer[n]);
 
 int main(void) {
-	int N, M, K;
-	inputTest(&N, &M, &K);
+	int input[3];
+	inputTest(input);
+	const int N = input[0], M = input[1], K = input[2];
 
 	int matriz[N][M];
 	inputMatriz(N, M, matriz);
@@ -98,8 +99,8 @@ long distribuiCameras(const int N, const int M, const int K, const int matriz[N]
 	}
 }
 
-void inputTest(int *N, int *M, int *K) {
-	scanf("%i %i %i", N, M, K);
+void inputTest(int input[3]) {
+	scanf("%i %i %i", &input[0], &input[1], &input[2]);
 }
 
 void inputMatriz(const int N, const int M, int matriz[N][M]) {
