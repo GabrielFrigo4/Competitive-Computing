@@ -6,6 +6,7 @@
 #include <climits>
 #include <cstring>
 #include <cctype>
+#include <cmath>
 
 void test_case(int64_t t) {
 	return;

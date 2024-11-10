@@ -5,6 +5,7 @@
 #include <limits.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 void test_case(int64_t t) {
 	return;

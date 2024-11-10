@@ -6,6 +6,7 @@
 #include <climits>
 #include <cstring>
 #include <cctype>
+#include <cmath>
 
 #include <string>
 
