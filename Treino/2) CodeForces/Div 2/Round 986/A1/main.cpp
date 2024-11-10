@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <utility>
 #include <cstdint>
 #include <cstddef>
 #include <climits>
@@ -7,7 +8,6 @@
 #include <cctype>
 
 #include <string>
-#include <set>
 
 void test_case(void) {
 	int64_t n, a, b;
@@ -18,8 +18,7 @@ void test_case(void) {
 
 	std::pair<int64_t, int64_t> current_pos = {0, 0};
 	std::pair<int64_t, int64_t> queen_pos = {a, b};
-	std::set<std::pair<int64_t, int64_t>> pos = {current_pos};
-	for (size_t i = 0; i < 10 * 10; i++) {
+	for (size_t i = 0; i < a * b; i++) {
 		for (size_t e = 0; e < s.length(); e++) {
 			switch (s[e]) {
 				case 'N':
