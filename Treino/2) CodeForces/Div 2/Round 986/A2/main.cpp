@@ -18,7 +18,13 @@ void test_case(void) {
 	std::string s;
 	std::cin >> s;
 
+	const std::pair<int64_t, int64_t> queen_pos = {a, b};
 	std::pair<int64_t, int64_t> current_pos = {0, 0};
+	if (current_pos == queen_pos) {
+		std::cout << "YES" << std::endl;
+		return;
+	}
+
 	std::set<std::pair<int64_t, int64_t>> pos = {current_pos};
 	for (size_t i = 0; i < s.length(); i++) {
 		switch (s[i]) {
@@ -36,28 +42,23 @@ void test_case(void) {
 				break;
 		}
 		pos.insert(current_pos);
+
+		if (current_pos == queen_pos) {
+			std::cout << "YES" << std::endl;
+			return;
+		}
 	}
 
-	if (pos.contains({a, b})) {
-		std::cout << "YES" << std::endl;
+	for (size_t i = 0; i <= std::max(a, b) * 2; i++) {
+		for (auto const [pos_a, pos_b] : pos) {
+			if (queen_pos == std::make_pair(std::get<0>(current_pos) * i + pos_a, std::get<1>(current_pos) * i + pos_b)) {
+				std::cout << "YES" << std::endl;
+				return;
+			}
+		}
 	}
-	else if (std::get<0>(current_pos) < 0 || std::get<1>(current_pos) < 0) {
-		std::cout << "NO" << std::endl;
-	}
-	else if (current_pos == std::make_pair(0, 0)) {
-		std::cout << (current_pos == std::make_pair(a, b) ? "YES" : "NO") << std::endl;
-	}
-	else if (std::get<0>(current_pos) == 0) {
-		std::cout << (pos.contains({a, b % std::get<1>(current_pos)}) ? "YES" : "NO") << std::endl;
-	}
-	else if (std::get<1>(current_pos) == 0) {
-		std::cout << (pos.contains({a % std::get<0>(current_pos), b}) ? "YES" : "NO") << std::endl;
-	}
-	else {
-		int64_t min_div = std::min(a / std::get<0>(current_pos), b / std::get<1>(current_pos));
-		std::pair<int64_t, int64_t> pair_rest = {a - std::get<0>(current_pos) * min_div, b - std::get<1>(current_pos) * min_div};
-		std::cout << (pos.contains(pair_rest) ? "YES" : "NO") << std::endl;
-	}
+
+	std::cout << "NO" << std::endl;
 	return;
 }
 

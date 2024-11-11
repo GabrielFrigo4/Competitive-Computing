@@ -19,7 +19,7 @@ void test_case(void) {
 
 	std::pair<int64_t, int64_t> current_pos = {0, 0};
 	std::pair<int64_t, int64_t> queen_pos = {a, b};
-	for (size_t i = 0; i < a * b; i++) {
+	for (size_t i = 0; i <= std::max(a, b) * 2; i++) {
 		for (size_t e = 0; e < s.length(); e++) {
 			switch (s[e]) {
 				case 'N':
