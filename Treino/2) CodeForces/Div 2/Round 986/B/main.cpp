@@ -12,15 +12,17 @@ void test_case(void) {
 	int64_t n, b, c;
 	std::cin >> n >> b >> c;
 
-	if (b == 0 && c == 0) {
-		std::cout << "-1" << std::endl;
-	}
-	else if (b == 0) {
-		std::cout << (n - (n >= c)) << std::endl;
+	if (b == 0) {
+		if (c < n - 2) {
+			std::cout << "-1" << std::endl;
+		}
+		else {
+			std::cout << (n - (n > c)) << std::endl;
+		}
 	}
 	else {
 		int64_t max_rem = static_cast<int64_t>(std::ceil(static_cast<double>(n - c) / static_cast<double>(b)));
-		std::cout << (n - std::max(0L, max_rem)) << std::endl;
+		std::cout << (n - std::max(0LL, max_rem)) << std::endl;
 	}
 	return;
 }

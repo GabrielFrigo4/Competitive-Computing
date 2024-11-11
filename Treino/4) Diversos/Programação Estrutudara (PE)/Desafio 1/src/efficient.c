@@ -70,16 +70,16 @@ void inputMatriz(const int N, const int M, int matriz[N][M]) {
 }
 
 bool memoryCombination(const int N, const int K, const int index, int comb[K]) {
-    int i, j;
+    int i;
     bool flag;
     if (index == K)
         return false;
-	for (i = comb[index]; i < N + index - K; i++) {
+	if (comb[index] < N + index - K) {
 		flag = memoryCombination(N, K, index + 1, comb);
 		if (!flag) {
 		    comb[index]++;
-		    for (j = index + 1; j < K; j++)
-		        comb[j] = comb[j - 1] + 1;
+		    for (i = index + 1; i < K; i++)
+		        comb[i] = comb[i - 1] + 1;
 		}
 		return true;
 	}
