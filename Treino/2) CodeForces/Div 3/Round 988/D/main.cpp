@@ -47,10 +47,9 @@ void test_case(void) {
 		while (power < rpos - lpos && powers.size() > 0) {
 			auto it = powers.end();
 			std::advance(it, -1);
-			power += it->first;
+			power += std::get<0>(*it);
 
-			it->second--;
-			if (it->second <= 0) {
+			if (--std::get<1>(*it) <= 0) {
 				powers.erase(it);
 			}
 			count++;
