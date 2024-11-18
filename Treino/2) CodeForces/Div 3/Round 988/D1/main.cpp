@@ -34,7 +34,7 @@ void test_case(void) {
 		const int64_t rpos = std::get<1>(_h) + 1;
 		const int64_t lpos = std::get<0>(_h) - 1;
 
-		while (std::get<0>(p[ind]) <= lpos && ind < p.size()) {
+		while (ind < p.size() && std::get<0>(p[ind]) <= lpos) {
 			if (!powers.contains(std::get<1>(p[ind]))) {
 				powers[std::get<1>(p[ind])] = 1;
 			}
