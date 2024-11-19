@@ -47,20 +47,20 @@ void test_run(void) {
 	const int64_t max_x = n / w;
 	const int64_t delta = b / std::gcd(w, b);
 
-	int64_t pos1 = -1;
+	int64_t first_x = -1;
 	for (int64_t x = min_x; x <= std::min(delta, max_x); x++) {
 		if (equation(n, w, b, x)) {
-			pos1 = x;
+			first_x = x;
 			break;
 		}
 	}
 
-	if (pos1 == -1) {
+	if (first_x == -1) {
 		std::cout << "0" << std::endl;
 		return;
 	}
 
-	const int64_t count = (max_x + delta - pos1) / delta;
+	const int64_t count = (max_x + delta - first_x) / delta;
 	std::cout << count << std::endl;
 	return;
 }

@@ -38,9 +38,19 @@ bool assert(const int64_t n, const int64_t w, const int64_t b)
 	return false;
 }
 
-bool equation(const int64_t n, const int64_t w, const int64_t b, const int64_t x)
+int64_t gcd_ex(const int64_t a, const int64_t b, std::pair<int64_t, int64_t> &pos)
 {
-	return ((-w * x + n) % b == 0);
+	if (b == 0)
+	{
+		std::get<0>(pos) = 1;
+		std::get<1>(pos) = 0;
+		return a;
+	}
+	std::pair<int64_t, int64_t> pos1;
+	int64_t d = gcd_ex(b, a % b, pos1);
+	std::get<0>(pos) = std::get<1>(pos1);
+	std::get<1>(pos) = std::get<0>(pos1) - std::get<1>(pos1) * (a / b);
+	return d;
 }
 
 void test_run(void)
@@ -55,25 +65,25 @@ void test_run(void)
 
 	const int64_t min_x = 0;
 	const int64_t max_x = n / w;
-	const int64_t delta = b / std::gcd(w, b);
 
-	int64_t pos1 = -1;
-	for (int64_t x = min_x; x <= std::min(delta, max_x); x++)
-	{
-		if (equation(n, w, b, x))
-		{
-			pos1 = x;
-			break;
-		}
-	}
+	std::pair<int64_t, int64_t> pos;
+	const int64_t mdc = gcd_ex(w, b, pos);
+	const int64_t delta = b / mdc;
+	std::get<0>(pos) *= n / mdc;
+	std::get<1>(pos) *= n / mdc;
 
-	if (pos1 == -1)
+	if (n % mdc != 0)
 	{
 		std::cout << "0" << std::endl;
 		return;
 	}
 
-	const int64_t count = (max_x + delta - pos1) / delta;
+	int64_t first_x = std::get<0>(pos) % delta;
+	if (first_x < 0)
+	{
+		first_x += delta;
+	}
+	const int64_t count = (max_x + delta - first_x) / delta;
 	std::cout << count << std::endl;
 	return;
 }
