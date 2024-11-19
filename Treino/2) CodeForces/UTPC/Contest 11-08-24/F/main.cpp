@@ -9,9 +9,7 @@
 #include <cctype>
 #include <cmath>
 
-bool equation(const int64_t n, const int64_t w, const int64_t b, const int64_t x) {
-	return ((-w * x + n) % b == 0);
-}
+#include <vector>
 
 bool assert(const int64_t n, const int64_t w, const int64_t b) {
 	if (w + b == 0) {
@@ -23,17 +21,8 @@ bool assert(const int64_t n, const int64_t w, const int64_t b) {
 		}
 		return true;
 	}
-	if (w == 0) {
-		if (n % b == 0) {
-			std::cout << "1" << std::endl;
-		}
-		else {
-			std::cout << "0" << std::endl;
-		}
-		return true;
-	}
-	if (b == 0) {
-		if (n % w == 0) {
+	if (std::min(w, b) == 0) {
+		if (n % std::max(w, b) == 0) {
 			std::cout << "1" << std::endl;
 		}
 		else {
@@ -44,6 +33,45 @@ bool assert(const int64_t n, const int64_t w, const int64_t b) {
 	return false;
 }
 
+int64_t get_fist_pos(const int64_t n, const int64_t w, const int64_t b) {
+	const int64_t jump = w % b;
+	const int64_t finish_line = n % b;
+
+	if (jump == 0) {
+		return -(finish_line != 0);
+	}
+
+	if (finish_line % jump == 0) {
+		return finish_line / jump;
+	}
+
+	int64_t big_jump = jump;
+	std::vector<std::pair<int64_t, int64_t>> jumps = {std::make_pair(big_jump, 1)};
+	while (big_jump > std::gcd(b, big_jump) && finish_line % big_jump != 0) {
+		const int64_t lenght = (b / big_jump) + 1;
+		big_jump = (lenght * big_jump) % b;
+		jumps.push_back(std::make_pair(big_jump, lenght * std::get<1>(jumps.back())));
+	}
+
+	if (finish_line % big_jump != 0) {
+		return -1;
+	}
+
+	int64_t fist_pos = 0;
+	int64_t jump_pos = 0;
+	for (const auto jmp : jumps) {
+		while (jump_pos + std::get<0>(jmp) <= finish_line) {
+			jump_pos += std::get<0>(jmp);
+			fist_pos += std::get<1>(jmp);
+		}
+
+		if (jump_pos == finish_line) {
+			break;
+		}
+	}
+	return fist_pos;
+}
+
 void test_run(void) {
 	int64_t n, w, b;
 	std::cin >> n >> w >> b;
@@ -52,35 +80,16 @@ void test_run(void) {
 		return;
 	}
 
-	const int64_t min_x = 0;
-	const int64_t max_x = n/w;
+	const std::pair<int64_t, int64_t> limits = {0, n / w};
+	const int64_t delta = b / std::gcd(w, b);
 
-	int64_t p1 = -1, p2 = -1;
-	for (int64_t x = min_x; x <= max_x; x++) {
-		bool ok = equation(n, w, b, x);
-
-		if (ok && p1 == -1) {
-			p1 = x;
-			continue;
-		}
-		if (ok && p2 == -1) {
-			p2 = x;
-			break;
-		}
-	}
-
-	if (p1 == -1) {
+	const int64_t fist_pos = get_fist_pos(n, w, b);
+	if (fist_pos == -1) {
 		std::cout << "0" << std::endl;
 		return;
 	}
-	if (p2 == -1) {
-		std::cout << "1" << std::endl;
-		return;
-	}
 
-	const int64_t delta = p2 - p1;
-	const int64_t count = (max_x + delta - p1) / delta;
-
+	const int64_t count = (std::get<1>(limits) + delta - fist_pos) / delta;
 	std::cout << count << std::endl;
 	return;
 }
