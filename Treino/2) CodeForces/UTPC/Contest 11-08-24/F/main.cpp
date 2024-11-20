@@ -38,18 +38,18 @@ bool assert(const int64_t n, const int64_t w, const int64_t b)
 	return false;
 }
 
-int64_t gcd_ex(const int64_t a, const int64_t b, std::pair<int64_t, int64_t> &pos)
+int64_t gcd_ex(const int64_t a, const int64_t b, int64_t &x, int64_t &y)
 {
 	if (b == 0)
 	{
-		std::get<0>(pos) = 1;
-		std::get<1>(pos) = 0;
+		x = 1;
+		y = 0;
 		return a;
 	}
-	std::pair<int64_t, int64_t> pos1;
-	int64_t d = gcd_ex(b, a % b, pos1);
-	std::get<0>(pos) = std::get<1>(pos1);
-	std::get<1>(pos) = std::get<0>(pos1) - std::get<1>(pos1) * (a / b);
+	int64_t x1, y1;
+	int64_t d = gcd_ex(b, a % b, x1, y1);
+	x = y1;
+	y = x1 - y1 * (a / b);
 	return d;
 }
 
@@ -66,11 +66,8 @@ void test_run(void)
 	const int64_t min_x = 0;
 	const int64_t max_x = n / w;
 
-	std::pair<int64_t, int64_t> pos;
-	const int64_t mdc = gcd_ex(w, b, pos);
-	const int64_t delta = b / mdc;
-	std::get<0>(pos) *= n / mdc;
-	std::get<1>(pos) *= n / mdc;
+	int64_t pos_x, pos_y;
+	const int64_t mdc = gcd_ex(w, b, pos_x, pos_y);
 
 	if (n % mdc != 0)
 	{
@@ -78,12 +75,14 @@ void test_run(void)
 		return;
 	}
 
-	int64_t first_x = std::get<0>(pos) % delta;
-	if (first_x < 0)
+	const int64_t delta = b / mdc;
+	pos_x *= n / mdc;
+	pos_x %= delta;
+	if (pos_x < min_x)
 	{
-		first_x += delta;
+		pos_x += delta;
 	}
-	const int64_t count = (max_x + delta - first_x) / delta;
+	const int64_t count = (max_x + delta - pos_x) / delta;
 	std::cout << count << std::endl;
 	return;
 }
