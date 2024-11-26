@@ -7,14 +7,16 @@
 #include <ctype.h>
 #include <math.h>
 
-void test_case(int64_t t) {
+void test_case(void) {
 	return;
 }
 
 int main(void) {
 	int64_t t;
-	while (scanf("%lli", &t)) {
-		test_case(t);
+	scanf("%lli", &t);
+
+	while (t-- > 0) {
+		test_case();
 	}
 	return 0;
 }
