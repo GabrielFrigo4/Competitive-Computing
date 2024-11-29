@@ -18,7 +18,7 @@ int main(void) {
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
 
-	int64_t t;
+	long t;
 	std::cin >> t;
 
 	while (t-- > 0) {

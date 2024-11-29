@@ -12,8 +12,8 @@ void test_case(void) {
 }
 
 int main(void) {
-	int64_t t;
-	scanf("%lli", &t);
+	long t;
+	scanf("%li", &t);
 
 	while (t-- > 0) {
 		test_case();

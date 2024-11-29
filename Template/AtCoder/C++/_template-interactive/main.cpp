@@ -9,7 +9,7 @@
 #include <cctype>
 #include <cmath>
 
-void test_case(int64_t t) {
+void test_case(long t) {
 	return;
 }
 
@@ -18,7 +18,7 @@ int main(void) {
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
 
-	int64_t t;
+	long t;
 	while (std::cin >> t) {
 		test_case(t);
 	}
