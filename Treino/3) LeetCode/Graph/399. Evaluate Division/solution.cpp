@@ -1,6 +1,5 @@
 class Solution {
 private:
-    set<string> used;
     void dfs(map<string, map<string, double>> &graph, string var, string key, double val) {
         if (used.contains(key)){
             return;
@@ -15,6 +14,7 @@ private:
         }
     }
 public:
+    set<string> used;
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
         map<string, map<string, double>> graph;
         set<string> vars;
@@ -26,6 +26,7 @@ public:
         }
 
         for (string var : vars) {
+            used.clear();
             for (auto it = graph[var].begin(); it != graph[var].end(); it++) {
                 string key = get<0>(*it);
                 double value = get<1>(*it);
