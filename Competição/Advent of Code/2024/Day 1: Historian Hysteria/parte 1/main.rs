@@ -10,7 +10,7 @@ fn main() {
 	let mut vec2 = Vec::<i32>::new();
 
 	for line in reader.lines() {
-		let line = line.expect("Unable to read line");
+		let line = line.unwrap();
 		let parts = line.split("   ").collect::<Vec<&str>>();
 		let numb1 = parts[0].parse::<i32>().unwrap();
 		let numb2 = parts[1].parse::<i32>().unwrap();
@@ -18,13 +18,16 @@ fn main() {
 		vec2.push(numb2);
 	}
 
-	let mut score = 0;
-	for n1 in &vec1 {
-		let mut repeat = 0;
-		for n2 in &vec2 {
-			repeat += i32::from(n1 == n2);
-		}
-		score += n1 * repeat;
+	vec1.sort();
+	vec2.sort();
+
+	if vec1.len() != vec2.len() {
+		panic!("Diferent sizes");
 	}
-	println!("{}", score);
+
+	let mut dif = 0;
+	for i in 0..vec1.len() {
+		dif += (vec1[i] - vec2[i]).abs();
+	}
+	println!("{}", dif);
 }
