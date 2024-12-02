@@ -1,29 +1,33 @@
 class Solution {
 private:
-    int bfs(vector<vector<int>>& routes, unordered_map<int, vector<int>>& graph, int source, int target) {
+    int bfs(unordered_map<int, vector<int>>& graph, vector<vector<int>>& routes, int source, int target) {
         unordered_set<int> used;
-        used.insert(source);
-
         queue<int> next;
-        next.push(source);
+        for (int route : graph[source]) {
+            next.push(route);
+            used.insert(route);
+        }
 
         int buses = 1;
         while (!next.empty()) {
-            int top = next.front();
-            next.pop();
+            for (int size = next.size(); size > 0; size--) {
+                int route = next.front();
+                next.pop();
 
-            if (top == target) {
-                return buses;
-            }
+                for (int stop : routes[route]) {
+                    if (stop == target) {
+                        return buses;
+                    }
 
-            for (int stop : graph[get<0>(top)]) {
-                if (used.contains(stop)) {
-                    continue;
+                    for (int next_route : graph[stop]) {
+                        if (used.contains(next_route)) {
+                            continue;
+                        }
+                        next.push(next_route);
+                        used.insert(next_route);
+                    }
                 }
-                used.insert(stop);
-                next.push(stop);
             }
-
             buses++;
         }
 
@@ -36,15 +40,12 @@ public:
         }
 
         unordered_map<int, vector<int>> graph;
-        for (int i = 0; i < routes.size(); i++) {
-            for (int j1 = 0; j1 < routes[i].size(); j1++) {
-                for (int j2 = j1 + 1; j2 < routes[i].size(); j2++) {
-                    graph[routes[i][j1]].push_back(routes[i][j2]);
-                    graph[routes[i][j2]].push_back(routes[i][j1]);
-                }
+        for (int route = 0; route < routes.size(); route++) {
+            for (int stop : routes[route]) {
+                graph[stop].push_back(route);
             }
         }
 
-        return bfs(routes, graph, source, target);
+        return bfs(graph, routes, source, target);
     }
 };
