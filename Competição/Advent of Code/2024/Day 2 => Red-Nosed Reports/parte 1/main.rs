@@ -1,3 +1,4 @@
+use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
@@ -9,7 +10,9 @@ enum State {
 }
 
 fn main() {
-	let input = "input.txt";
+	let args: Vec<String> = env::args().collect();
+	let input = &args[1];
+
 	let file = File::open(input).unwrap();
 	let reader = BufReader::new(file);
 

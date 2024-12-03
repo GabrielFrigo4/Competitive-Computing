@@ -1,8 +1,11 @@
+use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 fn main() {
-	let input = "input.txt";
+	let args: Vec<String> = env::args().collect();
+	let input = &args[1];
+
 	let file = File::open(input).unwrap();
 	let reader = BufReader::new(file);
 
@@ -18,13 +21,16 @@ fn main() {
 		vec2.push(numb2);
 	}
 
-	let mut score = 0;
-	for n1 in &vec1 {
-		let mut repeat = 0;
-		for n2 in &vec2 {
-			repeat += i32::from(n1 == n2);
-		}
-		score += n1 * repeat;
+	vec1.sort();
+	vec2.sort();
+
+	if vec1.len() != vec2.len() {
+		panic!("Diferent sizes");
 	}
-	println!("{}", score);
+
+	let mut dif = 0;
+	for i in 0..vec1.len() {
+		dif += (vec1[i] - vec2[i]).abs();
+	}
+	println!("{}", dif);
 }
