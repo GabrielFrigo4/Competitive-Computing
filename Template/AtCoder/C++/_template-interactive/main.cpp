@@ -1,3 +1,4 @@
+#pragma region Include
 #include <algorithm>
 #include <iostream>
 #include <utility>
@@ -8,6 +9,18 @@
 #include <cstring>
 #include <cctype>
 #include <cmath>
+#pragma endregion Include
+
+#pragma region Define
+#define sbyte int8_t
+#define short int16_t
+#define int int32_t
+#define long int64_t
+#define byte uint8_t
+#define ushort uint16_t
+#define uint uint32_t
+#define ulong uint64_t
+#pragma endregion Define
 
 void test_case(long t) {
 	return;
