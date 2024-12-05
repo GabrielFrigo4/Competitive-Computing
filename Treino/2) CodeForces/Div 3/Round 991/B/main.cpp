@@ -9,8 +9,6 @@
 #include <cstring>
 #include <cctype>
 #include <cmath>
-
-#include <vector>
 #pragma endregion Include
 
 #pragma region Define
@@ -23,6 +21,8 @@
 #define uint uint32_t
 #define ulong uint64_t
 #pragma endregion Define
+
+#include <vector>
 
 void test_case(void) {
 	long n;
