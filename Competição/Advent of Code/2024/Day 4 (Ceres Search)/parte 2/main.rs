@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 fn main() {
-	let args: Vec<String> = env::args().collect();
+	let args = env::args().collect::<Vec<String>>();
 	let input = &args[1];
 
 	let file = File::open(input).unwrap();
