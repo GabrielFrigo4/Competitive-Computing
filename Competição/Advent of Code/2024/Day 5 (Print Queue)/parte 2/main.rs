@@ -32,18 +32,33 @@ fn main() {
 				rules.push((min, max));
 			},
 			State::Updates => {
-				let numbs = line.split(",").map(|x| x.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+				let mut numbs = line.split(",").map(|x| x.parse::<i32>().unwrap()).collect::<Vec<i32>>();
+
+				let mut tmp = true;
 				let mut ok = true;
-				for i in 0..numbs.len() {
-					for e in (i+1)..numbs.len() {
+				let mut i = 0;
+				let mut e = 0;
+				while i < numbs.len() {
+					e = i + 1;
+					while e < numbs.len() && tmp {
 						for rule in &rules {
 							if numbs[i] == rule.1 && numbs[e] == rule.0 {
+								numbs[i] = rule.0;
+								numbs[e] = rule.1;
+								tmp = false;
 								ok = false;
+								break;
 							}
 						}
+						e += 1;
 					}
+
+					if tmp {
+						i += 1;
+					}
+					tmp = true;
 				}
-				if ok {
+				if !ok {
 					sum += numbs[numbs.len()/2];
 				}
 			}
