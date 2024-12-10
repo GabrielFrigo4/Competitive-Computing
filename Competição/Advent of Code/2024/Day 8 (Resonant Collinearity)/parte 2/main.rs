@@ -43,11 +43,16 @@ fn main() {
 				let dy = list[i].0 - list[e].0;
 				let dx = list[i].1 - list[e].1;
 
-				if valid_pos(list[i].1 + dx, list[i].0 + dy, width, height) {
-					antinodes.insert((list[i].0 + dy, list[i].1 + dx));
+				let mut m = 0;
+				while valid_pos(list[i].1 + dx * m, list[i].0 + dy * m, width, height) {
+					antinodes.insert((list[i].0 + dy * m, list[i].1 + dx * m));
+					m += 1;
 				}
-				if valid_pos(list[e].1 - dx, list[e].0 - dy, width, height) {
-					antinodes.insert((list[e].0 - dy, list[e].1 - dx));
+
+				m = 0;
+				while valid_pos(list[e].1 - dx * m, list[e].0 - dy * m, width, height) {
+					antinodes.insert((list[e].0 - dy * m, list[e].1 - dx * m));
+					m += 1;
 				}
 			}
 		}
