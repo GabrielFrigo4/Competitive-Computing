@@ -68,8 +68,6 @@ fn main() {
 		}
 	}
 
-	dbg!(&mem);
-
 	let mut sum = 0;
 	for (i, n) in mem.into_iter().enumerate() {
 		if n == -1 {
