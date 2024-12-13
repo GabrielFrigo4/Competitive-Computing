@@ -36,10 +36,6 @@ fn dfs(mat: &mut Vec<Vec<Plant>>, regs: &mut Vec<Region>, y: isize, x: isize) {
 			regs.last_mut().unwrap().per += 1;
 			continue;
 		}
-		if pos_reg(mat, y + mov.0, x + mov.1) != None {
-			regs.last_mut().unwrap().per += 1;
-			continue;
-		}
 		mat[(y + mov.0) as usize][(x + mov.1) as usize].reg = Some(regs.len() - 1);
 		regs.last_mut().unwrap().ar += 1;
 		dfs(mat, regs, y + mov.0, x + mov.1);
