@@ -6,6 +6,7 @@ use regex::Regex;
 fn main() {
 	let args = env::args().collect::<Vec<String>>();
 	let input = &args[1];
+
 	let file = File::open(input).unwrap();
 	let reader = BufReader::new(file);
 
