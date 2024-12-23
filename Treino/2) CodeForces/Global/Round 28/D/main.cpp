@@ -37,13 +37,41 @@ void test_case(void) {
 	for (auto &_a : a) {
 		std::cin >> _a;
 	}
+	const int pv = a.front();
+	std::sort(a.rbegin(), a.rend());
 
 	std::vector<int> b(m);
 	for (auto &_b : b) {
 		std::cin >> _b;
 	}
+	std::sort(b.rbegin(), b.rend());
 
-	
+	std::vector<int> c(m);
+	int li = n - 1;
+	for (int i = m - 1; i >= 0; i--) {
+		while (li >= 0 && a[li] < b[i]) {
+			li--;
+		}
+		c[i] = (b[i] <= pv ? 0 : li + 1);
+	}
+
+	for (int k = 1; k <= m; k++) {
+		const int rem = m % k;
+		const int con = m / k;
+
+		const auto it = std::upper_bound(b.rbegin(), b.rend(), pv);
+		const int dist = std::abs(std::distance(b.rend(), it) + 1);
+
+		long pos = con;
+		if (it != b.rend()) {
+			for (int i = dist - rem; i >= 0; i -= k) {
+				pos += c[i];
+			}	
+		}
+		std::cout << pos << " ";
+	}
+
+	std::cout << std::endl;
 	return;
 }
 
