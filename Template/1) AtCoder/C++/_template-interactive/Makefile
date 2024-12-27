@@ -1,5 +1,5 @@
 win:
-	g++ -std=c++23 -O2 main.cpp -o main -I ../../../
+	g++ -Wl,--stack=268435456 -std=c++23 -O2 main.cpp -o main -I ../../../
 	main
 
 win-run:
@@ -12,7 +12,7 @@ win-clip:
 	cat main.cpp | win32yank -i
 
 unix:
-	g++ -std=c++23 -O2 main.cpp -o main -I ../../../
+	g++ -Wl,--stack=268435456 -std=c++23 -O2 main.cpp -o main -I ../../../
 	./main
 
 unix-run:

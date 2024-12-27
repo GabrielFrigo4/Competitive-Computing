@@ -1,5 +1,5 @@
 win:
-	gcc -std=c17 -O2 main.c -o main
+	gcc -Wl,--stack=268435456 -std=c17 -O2 main.c -o main
 	main
 
 win-run:
@@ -12,7 +12,7 @@ win-clip:
 	cat main.c | win32yank -i
 
 unix:
-	gcc -std=c17 -O2 main.c -o main
+	gcc -Wl,--stack=268435456 -std=c17 -O2 main.c -o main
 	./main
 
 unix-run:
