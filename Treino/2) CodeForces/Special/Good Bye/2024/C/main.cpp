@@ -12,7 +12,6 @@
 #pragma endregion Default-Include
 
 #pragma region Include
-#include <queue>
 #pragma endregion Include
 
 #pragma region Default-Define
@@ -29,35 +28,31 @@
 #pragma region Define
 #pragma endregion Define
 
+long get_luck(const int l, const int r, const int k) {
+	const int m = (l + r) / 2;
+	const int s = r - l + 1;
+	if (k > s) return 0;
+
+	long luck = 0;
+	if (s & 1 == 1) {
+		luck += m;
+		
+		if (l == r) return m;
+		luck += get_luck(l, m - 1, k);
+		luck += get_luck(m + 1, r, k);	
+	}
+	else {
+		luck += get_luck(l, m, k);
+		luck += get_luck(m + 1, r, k);
+	}
+	return luck;
+}
+
 void test_case(void) {
 	long n, k;
 	std::cin >> n >> k;
 
-	long luck = 0;
-	std::queue<std::pair<long, long>> fila;
-	fila.push({ 1, n });
-	while (!fila.empty()) {
-		auto [l, r] = fila.front();
-		fila.pop();
-
-		if ((r - l + 1) < k) {
-			continue;
-		}
-
-		long m = (l + r) / 2;
-		if ((r - l + 1) & 1 == 0) {
-			fila.push({ l, m });
-			fila.push({ m + 1, r });
-		}
-		else {
-			luck += m;
-			if (l == r) continue;
-			fila.push({ l, m - 1 });
-			fila.push({ m + 1, r });
-		}
-	}
-
-	std::cout << luck << std::endl;
+	std::cout << get_luck(1, n, k) << std::endl;
 	return;
 }
 
