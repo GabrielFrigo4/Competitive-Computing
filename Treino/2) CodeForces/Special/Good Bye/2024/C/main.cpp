@@ -28,31 +28,19 @@
 #pragma region Define
 #pragma endregion Define
 
-long get_luck(const int l, const int r, const int k) {
-	const int m = (l + r) / 2;
-	const int s = r - l + 1;
-	if (k > s) return 0;
-
-	long luck = 0;
-	if (s & 1 == 1) {
-		luck += m;
-		
-		if (l == r) return m;
-		luck += get_luck(l, m - 1, k);
-		luck += get_luck(m + 1, r, k);	
-	}
-	else {
-		luck += get_luck(l, m, k);
-		luck += get_luck(m + 1, r, k);
-	}
-	return luck;
+int split_count(const int n, const int k, const int d) {
+	if (n < k) return 0;
+	return (n & 1) * (d / 2) + split_count(n / 2, k, d * 2);
 }
 
 void test_case(void) {
-	long n, k;
+	int n, k;
 	std::cin >> n >> k;
 
-	std::cout << get_luck(1, n, k) << std::endl;
+	long luck = split_count(n, k, 1);
+	luck *= n + 1;
+	luck += ((n + 1) / 2) * (n & 1);
+	std::cout << luck << std::endl;
 	return;
 }
 
