@@ -5,8 +5,8 @@ win:
 win-run:
 	cat "./input.txt" | "./main.exe"
 
-win-del:
-	del "./main.exe"
+win-rm:
+	rm "./main.exe"
 
 win-clip:
 	cat "./main.cpp" | win32yank -i
