@@ -1,25 +1,25 @@
 win:
-	gcc -Wl,--stack=268435456 -std=c17 -O2 main.c -o main
-	main
+	gcc -Wl,--stack=268435456 -std=c23 -O2 main.c -o main
+	./main.exe
 
 win-run:
-	main
+	./main.exe
 
 win-del:
-	del main.exe
+	del "./main.exe"
 
 win-clip:
-	cat main.c | win32yank -i
+	cat "./main.c" | win32yank -i
 
 unix:
-	gcc -Wl,--stack=268435456 -std=c17 -O2 main.c -o main
+	gcc -Wl,-z,stack-size=268435456 -std=c23 -O2 main.c -o main
 	./main
 
 unix-run:
 	./main
 
 unix-rm:
-	rm main
+	rm "./main"
 
 unix-clip:
-	cat main.c | wl-copy
+	cat "./main.cpp" | wl-copy

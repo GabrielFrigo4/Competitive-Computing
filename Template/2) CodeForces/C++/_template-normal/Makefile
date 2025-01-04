@@ -1,25 +1,25 @@
 win:
 	g++ -Wl,--stack=268435456 -std=c++23 -O2 main.cpp -o main
-	main < input.txt
+	cat "./input.txt" | "./main.exe"
 
 win-run:
-	main < input.txt
+	cat "./input.txt" | "./main.exe"
 
 win-del:
-	del main.exe
+	del "./main.exe"
 
 win-clip:
-	cat main.cpp | win32yank -i
+	cat "./main.cpp" | win32yank -i
 
 unix:
-	g++ -Wl,--stack=268435456 -std=c++23 -O2 main.cpp -o main
-	./main < input.txt
+	g++ -Wl,-z,stack-size=268435456 -std=c++23 -O2 main.cpp -o main
+	cat "./input.txt" | "./main"
 
 unix-run:
-	./main < input.txt
+	cat "./input.txt" | "./main"
 
 unix-rm:
-	rm main
+	rm "./main"
 
 unix-clip:
-	cat main.cpp | wl-copy
+	cat "./main.cpp" | wl-copy
