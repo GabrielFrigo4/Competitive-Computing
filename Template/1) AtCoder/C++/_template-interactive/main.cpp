@@ -12,6 +12,9 @@
 #include <cmath>
 #pragma endregion Include
 
+#pragma region Library
+#pragma endregion Library
+
 #pragma region Types
 #define byte uint8_t
 #define short int16_t
