@@ -13,6 +13,7 @@
 #pragma endregion Include
 
 #pragma region Library
+#include <vector>
 #pragma endregion Library
 
 #pragma region Types
@@ -41,7 +42,60 @@ typedef uint64_t ulong;
 #pragma region Custom
 #pragma endregion Custom
 
+std::vector<int> p;
+std::vector<int> s;
+
+void dsu_make(const int n) {
+	p.resize(n);
+	s.resize(n);
+	for (int i = 0; i < n; i++) {
+		p[i] = i;
+		s[i] = 1;
+	}
+}
+
+int dsu_find(const int x) {
+	if (p[x] == x) {
+		return x;
+	}
+	return p[x] = dsu_find(p[x]);
+}
+
+void dsu_union(int x, int y) {
+	x = dsu_find(x);
+	y = dsu_find(y);
+
+	if (x == y) {
+		return;
+	}
+
+	if (s[x] < s[y]) {
+		std::swap(x, y);
+	}
+
+	s[x] += s[y];
+	p[y] = x;
+}
+
 void test_case(void) {
+	int n;
+	std::cin >> n;
+	dsu_make(n);
+
+	std::vector<int> p(n);
+	for (auto &_p : p) {
+		std::cin >> _p;
+		_p--;
+	}
+
+	for (int i = 0; i < n; i++) {
+		dsu_union(i, p[i]);
+	}
+
+	for (int i = 0; i < n; i++) {
+		std::cout << s[dsu_find(i)] << " ";
+	}
+	std::cout << std::endl;
 	return;
 }
 
@@ -50,10 +104,10 @@ int main(void) {
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
 
-	long t;
-	std::cin >> t;
+	long q;
+	std::cin >> q;
 
-	while (t--) {
+	while (q--) {
 		test_case();
 	}
 	return 0;
