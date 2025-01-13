@@ -1,0 +1,72 @@
+* Enunciado
+É passado pra você uma lista de números inteiros de tamanho ~n~ e ~q~ perguntas.
+Para cada pergunta é passado 2 números ~l~ e ~r~ e você deve responder se na lista existe todos os números inteiros entre ~l~ e ~r~ inclusivo.
+Ou seja, o intervalo ~[l, r]~, ou seja, ~l~, ~l+1~, ..., ~r-1~, ~r~.
+Se existir você responde ~SIM~, senão você responde ~NÃO~.
+
+* Entrada
+Primeira Linha tem 2 inteiros ~n~ e ~q~, sendo ~n~ o tamanho da lista de números e ~q~ a quantidade de querys.
+Na segunda linha tem uma lista de ~n~ números
+Nas próximas ~q~ linhas tem 2 números, ~l~ e ~r~ sendo ~l < r~.
+
+* Saida
+Para cada querys você deve emitir um ~SIM~ ou um ~NÃO~, sendo um ~SIM~ se for possível e um ~NÃO~ se não for possível
+
+* Exemplo 1
+** Entrada
+#+BEGIN_SRC
+8 3
+8 7 6 1 3 2 4 5
+1 2
+4 6
+1 8
+#+END_SRC
+
+** Saída
+#+BEGIN_SRC
+SIM
+SIM
+SIM
+#+END_SRC
+
+* Exemplo 2
+** Entrada
+#+BEGIN_SRC
+3 2
+4 1 2
+1 4
+2 4
+#+END_SRC
+
+** Saída
+#+BEGIN_SRC
+NÃO
+NÃO
+#+END_SRC
+
+* Exemplo 3
+** Entrada
+#+BEGIN_SRC
+12 8
+1 2 3 4 5 7 8 9 10 11 13
+1 3
+4 7
+9 11
+1 13
+11 13
+3 5
+5 7
+7 11
+#+END_SRC
+
+** Saída
+#+BEGIN_SRC
+SIM
+NÃO
+SIM
+NÃO
+NÃO
+SIM
+NÃO
+SIM
+#+END_SRC
