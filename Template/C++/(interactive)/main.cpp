@@ -36,6 +36,8 @@ typedef uint64_t ulong;
 #define LONG_MIN LLONG_MIN
 #define LONG_MAX LLONG_MAX
 #define ULONG_MAX ULLONG_MAX
+#define INF_MIN -0x3f3f3f3f3f3f3f3fLL
+#define INF_MAX 0x3f3f3f3f3f3f3f3fLL
 #pragma endregion Constant
 
 #pragma region Custom

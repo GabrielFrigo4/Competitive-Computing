@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <utility>
-#include <numbers>
+//#include <numbers>
 #include <numeric>
 #include <cstdint>
 #include <cstddef>
@@ -13,6 +13,7 @@
 #pragma endregion Include
 
 #pragma region Library
+#include <vector>
 #pragma endregion Library
 
 #pragma region Types
@@ -36,20 +37,30 @@ typedef uint64_t ulong;
 #define LONG_MIN LLONG_MIN
 #define LONG_MAX LLONG_MAX
 #define ULONG_MAX ULLONG_MAX
-#define INF_MIN -0x3f3f3f3f3f3f3f3fLL
-#define INF_MAX 0x3f3f3f3f3f3f3f3fLL
 #pragma endregion Constant
 
 #pragma region Custom
 #pragma endregion Custom
 
-void test_case()
-{
+void test_case(std::vector<bool> &a) {
+	int t = 0;
+	int k = 0;
+	for (bool e : a) {
+		if (e) {
+			k++;
+		}
+		else {
+			t += (k > 0);
+			k -= (k > 0);
+		}
+	}
+	std::cout << t << std::endl;
 	return;
 }
 
-int main(void)
-{
+int main(void) {
+	freopen("highcard.in", "r", stdin);
+	freopen("highcard.out", "w", stdout);
 	std::ios_base::sync_with_stdio(false);
 	std::cout.tie(nullptr);
 	std::cin.tie(nullptr);
@@ -57,9 +68,12 @@ int main(void)
 	long t;
 	std::cin >> t;
 
-	while (t--)
-	{
-		test_case();
+	std::vector<bool> a(2*t, false);
+	while (t--) {
+		int e;
+		std::cin >> e;
+		a[--e] = true;
 	}
+	test_case(a);
 	return 0;
 }
