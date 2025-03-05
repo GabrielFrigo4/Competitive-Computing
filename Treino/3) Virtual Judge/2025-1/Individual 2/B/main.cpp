@@ -1,5 +1,3 @@
-#+NAME: Code
-#+BEGIN_SRC C++ :tangle tmp/main.cpp :mkdirp yes
 #pragma region Include
 #include <algorithm>
 #include <iostream>
@@ -13,6 +11,10 @@
 #include <cctype>
 #include <cmath>
 #pragma endregion Include
+
+#pragma region Library
+#include <vector>
+#pragma endregion Library
 
 #pragma region Types
 #define byte uint8_t
@@ -43,8 +45,17 @@ typedef uint64_t ulong;
 #pragma region Custom
 #pragma endregion Custom
 
-void test_case()
+void test_case(const std::vector<int> &v, const int len, const int n)
 {
+	int small = 0;
+	int big = 0;
+	for (auto _v : v)
+	{
+		small = std::max(small, std::min(_v, len - _v));
+		big = std::max(big, std::max(_v, len - _v));
+	}
+
+	std::cout << small << " " << big << std::endl;
 	return;
 }
 
@@ -59,29 +70,16 @@ int main(void)
 
 	while (t--)
 	{
-		test_case();
+		int len, n;
+		std::cin >> len >> n;
+
+		std::vector<int> v(n);
+		for (auto &_v : v)
+		{
+			std::cin >> _v;
+		}
+
+		test_case(v, len, n);
 	}
 	return 0;
 }
-#+END_SRC
-
-#+NAME: Input
-#+BEGIN_SRC txt :tangle tmp/input.txt :mkdirp yes
-
-#+END_SRC
-
-#+NAME: Build
-#+BEGIN_SRC elisp :async :var file-path=(buffer-file-name)
-(org-babel-tangle-file file-path)
-(setq results "[INFO]\n")
-(setq results (concat results (format "file-path = \"%s\"\n" file-path)))
-(setq results (concat results "\n[COMPILE]\n"))
-(if (eq system-type 'windows-nt)
- (setq results (concat results (shell-command-to-string "g++ -Wl,--stack=268435456 -std=c++23 -O2 \"tmp/main.cpp\" -o \"tmp/main\"")))
- (setq results (concat results (shell-command-to-string "g++ -Wl,-z,stack-size=268435456 -std=c++23 -O2 \"tmp/main.cpp\" -o \"tmp/main\""))))
-(setq results (concat results "\n[OUTPUT]\n"))
-(setq results (concat results (shell-command-to-string "cat \"tmp/input.txt\" | \"tmp/main\"")))
-(setq results (concat results "\n[CLEAN]\n"))
-(setq results (concat results (shell-command-to-string "rm -r tmp")))
-(setq results results)
-#+END_SRC
