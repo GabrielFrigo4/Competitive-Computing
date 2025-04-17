@@ -9,6 +9,9 @@ memo = [-1] * (x + 1)
 memo[0] = 0
 
 def dp(v):
+	global memo
+	global n, x, c
+
 	if (v < 0):
 		return 0
 	if (memo[v] > -1):

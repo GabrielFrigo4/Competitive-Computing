@@ -1,5 +1,4 @@
 import sys
-import math
 sys.setrecursionlimit(2**28)
 
 l = int(input())

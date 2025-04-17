@@ -9,6 +9,9 @@ memo = [-2**60] * (x + 1)
 memo[0] = 0
 
 def dp(v):
+	global memo
+	global n, x, c
+
 	if (v < 0):
 		return -1
 	if memo[v] >= -1:
@@ -22,7 +25,7 @@ def dp(v):
 				memo[v] = memo[v - _c] + 1
 			else:
 				memo[v] = min(memo[v], memo[v - _c] + 1)
-	return memo[v]			
+	return memo[v]
 
 for i in range(x):
 	dp(i)
