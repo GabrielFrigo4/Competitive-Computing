@@ -11,5 +11,5 @@ class Solution:
 		return self.memo[i1][i2]
 
 	def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-		self.memo = [[-1] * len(text2) for i in range(len(text1))]
+		self.memo = [[-1] * len(text2) for _ in range(len(text1))]
 		return self.dp(text1, text2, len(text1) - 1, len(text2) - 1)

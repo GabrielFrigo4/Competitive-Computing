@@ -11,5 +11,5 @@ class Solution:
 		return self.memo[l][r]
 
 	def longestPalindromeSubseq(self, s: str) -> int:
-		self.memo = [[-1] * len(s) for i in range(len(s))]
+		self.memo = [[-1] * len(s) for _ in range(len(s))]
 		return self.dp(s, 0, len(s) - 1)

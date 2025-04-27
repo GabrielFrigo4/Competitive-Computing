@@ -23,8 +23,8 @@ class Solution:
 		return self.memo[l][r]
 
 	def matrixChainOrder(self, arr):
-		self.memo = [[0] * len(arr) for i in range(len(arr))]
-		self.sol = [[0] * len(arr) for i in range(len(arr))]
+		self.memo = [[0] * len(arr) for _ in range(len(arr))]
+		self.sol = [[0] * len(arr) for _ in range(len(arr))]
 		self.res = ''
 		self.dp(arr, 1, len(arr) - 1)
 		return self.rec(1, len(arr) - 1)
