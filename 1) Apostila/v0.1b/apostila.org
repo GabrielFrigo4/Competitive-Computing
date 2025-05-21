@@ -1,0 +1,34 @@
+* Apostila
+Apostila para a *Maratora de Programação*
+Fontes: ([[https://youkn0wwho.academy/topic-list][topic-list]], [[https://noic.com.br/materiais-informatica/curso/][noic-cursors]], [[https://cp-algorithms.com/][cp-algorithms]], [[https://projecteuler.net/archives][project-euler]])
+
+* Configuração
+Nessa capitulo temos os códigos de configuração para o =Vim= e para o =Emacs=
+
+** Vim
+*Configuração Básica* do =Vim= _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
+#+BEGIN_SRC vimrc
+set noet sts=4 sw=4 ts=4
+set nu rnu cul cuc
+set ww+=<,>,h,l,[,]
+set bs+=indent,eol,start
+let &t_SI = "\<Esc>[5 q"
+let &t_SR = "\<Esc>[3 q"
+let &t_EI = "\<Esc>[1 q"
+autocmd BufNewFile *.cpp template.cpp
+#+END_SRC
+
+** Emacs
+*Configuração Básica* do =Emacs= _~/.emacs_, _~/.emacs.d/init.el_
+#+BEGIN_SRC elisp
+(custom-set-variables
+ '(inhibit-startup-screen t)
+ '(column-number-mode t)
+ '(global-display-line-numbers-mode t)
+ '(display-line-numbers-type 'relative)
+ '(custom-enabled-themes '(wombat))
+ '(auto-insert-mode t)
+ '(auto-insert-query nil)
+ '(auto-insert-directory "~"))
+(define-auto-insert "\\.cpp\\'" "template.cpp")
+#+END_SRC
