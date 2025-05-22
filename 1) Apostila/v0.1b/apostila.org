@@ -8,8 +8,11 @@ Nessa capitulo temos os códigos de configuração para o =Vim= e para o =Emacs=
 ** Vim
 *Configuração Básica* do =Vim= _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
 #+BEGIN_SRC vimrc
+syntax on
+filetype on
+filetype indent on
+set nu rnu nocp
 set noet sts=4 sw=4 ts=4
-set nu rnu cul cuc
 set ww+=<,>,h,l,[,]
 set bs+=indent,eol,start
 let &t_SI = "\<Esc>[5 q"
@@ -31,4 +34,29 @@ autocmd BufNewFile *.cpp template.cpp
  '(auto-insert-query nil)
  '(auto-insert-directory "~"))
 (define-auto-insert "\\.cpp\\'" "template.cpp")
+#+END_SRC
+
+** Template
+*Template Básico* de =C++= para o =G++=
+#+BEGIN_SRC c++
+#include <bits/stdc++.h>
+#define int long long
+#define vec vector
+using namespace std;
+
+void task() {
+    return;
+}
+
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+
+    int t = 1;
+    //cin >> t;
+    while (t--) {
+        task();
+    }
+}
 #+END_SRC
