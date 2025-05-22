@@ -11,7 +11,7 @@ Nessa capitulo temos os códigos de configuração para o =Vim= e para o =Emacs=
 syntax on
 filetype on
 filetype indent on
-set nu rnu nocp
+set nocp nu rnu
 set noet sts=4 sw=4 ts=4
 set ww+=<,>,h,l,[,]
 set bs+=indent,eol,start
