@@ -15,8 +15,8 @@ set ww+=<,>,h,l,[,]
 let &t_SI = "\<Esc>[5 q"
 let &t_SR = "\<Esc>[3 q"
 let &t_EI = "\<Esc>[1 q"
-au BufNewFile *.cpp template.cpp
-au BufNewFile *.py template.py
+au BufNewFile *.cpp 0r template.cpp
+au BufNewFile *.py 0r template.py
 #+END_SRC
 
 ** Emacs
