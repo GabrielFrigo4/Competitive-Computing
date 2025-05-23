@@ -16,6 +16,7 @@ let &t_SI = "\<Esc>[5 q"
 let &t_SR = "\<Esc>[3 q"
 let &t_EI = "\<Esc>[1 q"
 au BufNewFile *.cpp template.cpp
+au BufNewFile *.py template.py
 #+END_SRC
 
 ** Emacs
@@ -29,11 +30,17 @@ au BufNewFile *.cpp template.cpp
  '(custom-enabled-themes '(wombat))
  '(auto-insert-mode t)
  '(auto-insert-query nil)
- '(auto-insert-directory "~"))
+ '(auto-insert-directory "~")
+ '(font-lock-maximum-decoration 't)
+ '(c-default-style "user"))
 (define-auto-insert "\\.cpp\\'" "template.cpp")
+(define-auto-insert "\\.py\\'" "template.py")
 #+END_SRC
 
-** Template
+* Templates
+Nessa capitulo temos os códigos de template para o =C++= e para o =Python=
+
+** C++
 *Template Básico* de =C++= para o =G++=
 #+BEGIN_SRC c++
 #include <bits/stdc++.h>
@@ -42,18 +49,36 @@ au BufNewFile *.cpp template.cpp
 using namespace std;
 
 void task() {
-    return;
+	return;
 }
 
 signed main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr);
+	cout.tie(nullptr);
 
-    int t = 1;
-    //cin >> t;
-    while (t--) {
-        task();
-    }
+	int t = 1;
+	//cin >> t;
+	while (t--) {
+		task();
+	}
 }
+#+END_SRC
+
+** Python
+*Template Básico* de =Python= para o =PyPy=
+#+BEGIN_SRC python
+import sys
+sys.setrecursionlimit(10**7)
+
+def task():
+	pass
+
+def main():
+	t = 1
+	#t = int(input())
+	for _ in range(t):
+		task()
+
+main()
 #+END_SRC
