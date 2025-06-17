@@ -3,9 +3,9 @@ import string
 
 alfabeto_minusculo = list(string.ascii_lowercase + string.digits)
 per = [0, 0, 0, 0, 0]
-pos = [33, 40, 44, 58, 61]
-site = 'https://forms.layers.education/4r*zwnl5s*s2n*yuu6ee8?answ=*85*4a9'
-hash_key = '534190da10e7805515a7b640f5cd322a'
+pos = [0, 0, 0, 0, 0]
+site = ''
+hash_key = ''
 
 def permutate_list(my_list, size):
     for i in range(len(my_list)):
