@@ -13,6 +13,7 @@
 #pragma endregion Include
 
 #pragma region Library
+#include <vector>
 #pragma endregion Library
 
 #pragma region Types
@@ -46,7 +47,17 @@ typedef uint64_t ulong;
 
 void test_run()
 {
-	return;
+	long N, P, K;
+	std::cin >> N >> P >> K;
+
+	std::vector<long> table(N);
+	for (long i = 1; i <= N - 1; i++)
+	{
+		table[i] = (i >= P ? i + 1 : i);
+	}
+	table[0] = (N == P ? N - 1 : N);
+
+	std::cout << table[(K + P) % (N - 1)] << std::endl;
 }
 
 int main(void)

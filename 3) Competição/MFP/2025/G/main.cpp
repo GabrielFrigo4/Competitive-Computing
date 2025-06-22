@@ -13,7 +13,7 @@
 #pragma endregion Include
 
 #pragma region Library
-#include <vector>
+#include <string>
 #pragma endregion Library
 
 #pragma region Types
@@ -47,37 +47,24 @@ typedef uint64_t ulong;
 
 void test_run()
 {
-	long N, M;
-	std::cin >> N >> M;
-
-	std::vector mat(N, std::vector<long>(M));
-	for (size_t y = 0; y < N; y++)
+	std::string S;
+	std::cin >> S;
+	
+	std::string U, B;
+	for (size_t i = 0; i < S.length(); i++)
 	{
-		for (size_t x = 0; x < M; x++)
+		if ((i & 1) == 0)
 		{
-			std::cin >> mat[y][x];
+			U.push_back(S[i]);
+		}
+		else
+		{
+			B.push_back(S[i]);
 		}
 	}
 
-	for (size_t y = 0; y < N; y++)
-	{
-		for (size_t x = 0; x < M; x++)
-		{
-			if (((y + x) & 1) != (mat[y][x] & 1))
-			{
-				mat[y][x]++;
-			}
-		}
-	}
-
-	for (size_t y = 0; y < N; y++)
-	{
-		for (size_t x = 0; x < M; x++)
-		{
-			std::cout << mat[y][x] << " ";
-		}
-		std::cout << std::endl;
-	}
+	std::cout << U << std::endl;
+	std::cout << B << std::endl;
 }
 
 int main(void)
