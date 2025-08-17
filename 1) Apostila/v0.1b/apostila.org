@@ -8,7 +8,9 @@ Nessa capitulo temos os códigos de configuração para o =Vim= e para o =Emacs=
 ** Vim
 *Configuração Básica* do =Vim= _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
 #+BEGIN_SRC vimrc
-syntax on filetype on indent on
+syntax on
+filetype on
+filetype indent on
 set nocp nu rnu noet sts=4 sw=4 ts=4
 set bs+=indent,eol,start
 set ww+=<,>,h,l,[,]
