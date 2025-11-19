@@ -3,9 +3,9 @@ import string
 
 alfabeto = list(string.ascii_letters + string.digits)
 per = [0, 0]
-pos = [0, 0]
-site = ''
-hash_key = ''
+pos = [33, 40]
+site = 'https://forms.layers.education/xL*tB4sE0*zVp7KfG2QhU?answ=f8574a9'
+hash_key = 'a90cdb5f8b48d02e6026af077aed0eb1'
 
 def permutate_list(my_list, size):
     for i in range(len(my_list)):
