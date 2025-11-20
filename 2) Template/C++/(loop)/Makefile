@@ -1,25 +1,46 @@
+CC := g++
+EXT := cpp
+TARGET := main
+INPUT := "./input.txt"
+
+WIN_FLAGS := -Wl,--stack=268435456 -std=c++23 -O2
+WIN_EXE := "./$(TARGET).exe"
+WIN_CLIP := win32yank -i
+
+UNIX_FLAGS := -Wl,-z,stack-size=268435456 -std=c++23 -O2
+UNIX_EXE := "./$(TARGET)"
+UNIX_CLIP := wl-copy
+
+.PHONY: win
 win:
-	g++ -Wl,--stack=268435456 -std=c++23 -O2 main.cpp -o main
-	cat "./input.txt" | "./main.exe"
+	$(CC) $(WIN_FLAGS) $(TARGET).$(EXT) -o $(TARGET)
+	cat $(INPUT) | $(WIN_EXE)
 
+.PHONY: win-run
 win-run:
-	cat "./input.txt" | "./main.exe"
+	cat $(INPUT) | $(WIN_EXE)
 
+.PHONY: win-rm
 win-rm:
-	rm "./main.exe"
+	rm $(WIN_EXE)
 
+.PHONY: win-clip
 win-clip:
-	cat "./main.cpp" | win32yank -i
+	cat $(TARGET).$(EXT) | $(WIN_CLIP)
 
+.PHONY: unix
 unix:
-	g++ -Wl,-z,stack-size=268435456 -std=c++23 -O2 main.cpp -o main
-	cat "./input.txt" | "./main"
+	g++ $(UNIX_FLAGS) $(TARGET).$(EXT) -o $(TARGET)
+	cat $(INPUT) | $(UNIX_EXE)
 
+.PHONY: unix-run
 unix-run:
-	cat "./input.txt" | "./main"
+	cat $(INPUT) | $(UNIX_EXE)
 
+.PHONY: unix-rm
 unix-rm:
-	rm "./main"
+	rm $(UNIX_EXE)
 
+.PHONY: unix-clip
 unix-clip:
-	cat "./main.cpp" | wl-copy
+	cat $(TARGET).$(EXT) | $(UNIX_CLIP)
