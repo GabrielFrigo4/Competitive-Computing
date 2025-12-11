@@ -48,11 +48,11 @@ typedef uint64_t ulong;
 #pragma endregion Custom
 
 ulong rotate_bits(ulong bits) {
-	ulong rbits = 0;
-	while (bits > 0) {
-		long bit = (bits & 1);
-		bits >>= 1;
-		rbits <<= 1;
+	ulong rbits = 0ULL;
+	while (bits > 0ULL) {
+		long bit = (bits & 1ULL);
+		bits >>= 1ULL;
+		rbits <<= 1ULL;
 		rbits += bit;
 	}
 	return rbits;
@@ -61,24 +61,30 @@ ulong rotate_bits(ulong bits) {
 ulong next_palindrome(ulong bits, ulong index) {
 	do {
 		index++;
-		if ((1 << index) * 2 > bits) {
+#ifdef DEBUG
+		std::cout << "[INDEX]:      " << (1ULL << index) << ": " << std::bitset<64>(1ULL << index) << std::endl;
+#endif
+		if ((1ULL << index) * 2 > bits) {
 			return 0;
 		}
-	} while ((bits & (1 << index)) == 0);
-	bits -= (1 << index);
-	bits |= (1 << index) - 1;
-	bits &= rotate_bits(bits);
-	return std::max(bits, next_palindrome(bits, index));
+	} while ((bits & (1ULL << index)) == 0);
+	bits -= (1ULL << index);
+	bits |= (1ULL << index) - 1;
+	ulong palindrome = (bits & rotate_bits(bits));
+#ifdef DEBUG
+	std::cout << "[BITS]:       " << bits << ": " << std::bitset<64>(bits) << std::endl;
+	std::cout << "[PALINDROME]: " << palindrome << ": " << std::bitset<64>(palindrome) << std::endl;
+#endif
+	return std::max(palindrome, next_palindrome(bits, index));
 }
 
 void test_case()
 {
 	ulong X;
 	std::cin >> X;
-
 #ifdef DEBUG
-	std::cout << std::bitset<64>(X) << std::endl;
-	std::cout << std::bitset<64>(rotate_bits(X)) << std::endl;
+	std::cout << "[X]:          " << X << ": " << std::bitset<64>(X) << std::endl;
+	std::cout << "[INV_X]:      " << rotate_bits(X) << ": " << std::bitset<64>(rotate_bits(X)) << std::endl;
 #endif
 
 	if ((X & rotate_bits(X)) == X) {
