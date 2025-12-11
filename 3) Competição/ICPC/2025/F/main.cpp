@@ -44,8 +44,9 @@ typedef uint64_t ulong;
 #pragma endregion Constant
 
 #pragma region Custom
-#define OFFSET (4000)
-#define SIZE (2 * OFFSET + 1)
+#define MAXSUM (4000)
+#define OFFSET (MAXSUM)
+#define SIZE (2 * MAXSUM + 1)
 //#define DEBUG
 #pragma endregion Custom
 
@@ -59,24 +60,26 @@ void test_case()
 		std::cin >> _a;
 	}
 
-	long M[4][SIZE]{};
+	long M[5][SIZE]{};
+	M[0][OFFSET] = 1;
 	for (auto _a : a) {
-		M[0][_a + OFFSET]++;
-	}
-	for (long y = 1; y < 4; y++) {
-		for (auto _a : a) {
-			for (long x = _a; x < SIZE; x++) {
-				M[y][x] += M[y - 1][x - _a];
+		for (long k = 3; k >= 0; k--) {
+			for (long s = 0; s < SIZE; s++) {
+				if (M[k][s] == 0) {
+					continue;
+				}
+				int next = s + _a;
+				if (next >= 0 && next < SIZE) {
+					M[k + 1][next] += M[k][s];
+				}
 			}
-		}
-		for (long x = 0; x < SIZE; x++) {
-			M[y][x] /= 2;
 		}
 	}
 
 #ifdef DEBUG
-	for (long y = 0; y < 4; y++) {
-		for (long x = OFFSET - 1; x < OFFSET + 11; x++) {
+	const long range = 20;
+	for (long y = 1; y <= 4; y++) {
+		for (long x = OFFSET - range; x <= OFFSET + range; x++) {
 			std::cout << M[y][x] << " ";
 		}
 		std::cout << std::endl;
@@ -88,7 +91,7 @@ void test_case()
 	while (Q--) {
 		long q;
 		std::cin >> q;
-		std::cout << M[3][q + OFFSET] << std::endl;
+		std::cout << M[4][q + OFFSET] << std::endl;
 	}
 	return;
 }
