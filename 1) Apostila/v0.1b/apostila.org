@@ -8,14 +8,9 @@ Nessa capitulo temos os códigos de configuração para o =Vim= e para o =Emacs=
 ** Vim
 *Configuração Básica* do =Vim= _~/.vimrc_, _~/\under{}vimrc_, _~/vimfiles/vimrc_
 #+BEGIN_SRC vimrc
-syntax on
-filetype plugin indent on
-set nocp nu rnu noet sts=4 sw=4 ts=4
-set bs+=indent,eol,start
-set ww+=<,>,h,l,[,]
-let &t_SI = "\<Esc>[5 q"
-let &t_SR = "\<Esc>[3 q"
-let &t_EI = "\<Esc>[1 q"
+syn on|filetype plugin indent on
+se nocp nu rnu noet sts=4 sw=4 ts=4 bs=2 ww+=<,>,h,l,[,]
+let &t_SI="\<Esc>[5 q"|let &t_SR="\<Esc>[3 q"|let &t_EI="\<Esc>[1 q"
 au BufNewFile *.cpp 0r template.cpp
 au BufNewFile *.py 0r template.py
 #+END_SRC
